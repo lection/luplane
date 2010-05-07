@@ -1,0 +1,1 @@
+http://app.renren.com/apps/tos.do?api_key=376b811fd5454b2dbcbe084f76708b19&v=1.0&next=http://apps.renren.com/lu_plane/?origin=3105&origin=3105#

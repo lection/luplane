@@ -7,12 +7,10 @@
 			<td width="70%">
 			<script type="text/javascript">
 				function getTestJson(){
-					var ajax = new Ajax(Ajax.JSON);
-					ajax.ondone = function(data){
-						var dom = document.getElementById("plane_div_test");
-						dom.setTextValue(dom.getInnerHTML()+data.jsonObject.success);
-					}
-					ajax.post('http://apps.renren.com/lu_plane/jsoncomet_test.action',null,true);
+					$.getJSON('jsoncomet_test.action',null,function(data){
+						var test_dom = $("#plane_div_test");
+						test_dom.html(test_dom.html()+data.jsonObject.success);
+					});
 				}
 			</script>
 				<div id="plane_div_test"></div>
@@ -48,8 +46,7 @@
 							</tr>
 							<tr>
 								<td>胜率</td>
-								<td></td>
-							</tr>
+								<td><s:property value="user.victory/(user.fail + user.victory)" default="无"/></td>							</tr>
 						</tbody>
 					</table>
 				</div>

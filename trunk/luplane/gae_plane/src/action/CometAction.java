@@ -14,13 +14,9 @@ public class CometAction implements ServletRequestAware{
 	private JSONObject jsonObject;
 	
 	public String test() throws Exception{
-		Thread.sleep(3000);
+//		Thread.sleep(30000);
 		jsonObject = JSONObject.fromObject("{'success':"+new Date().getTime()+"}");
 		return "json";
-//		ServletActionContext.getResponse().setContentType("text/html");
-//		ServletActionContext.getResponse().getWriter().print("{json:{\"success\":\"123123123\"}}");
-//		ServletActionContext.getResponse().flushBuffer();
-//		return null;
 	}
 
 	public void setServletRequest(HttpServletRequest arg0) {
