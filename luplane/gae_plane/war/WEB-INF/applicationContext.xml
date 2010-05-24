@@ -18,4 +18,8 @@
 	   
 	   <!--Service-->
 	   <bean id="userService" class="service.impl.UserServiceImpl"/>
+	   <bean id="houseService" class="service.impl.HouseServiceImpl"/>
+	   
+	   <!--GameHouseManager-->
+	   <bean id="gameHouseManager" class="model.GameHouseManager"></bean>
 </beans>

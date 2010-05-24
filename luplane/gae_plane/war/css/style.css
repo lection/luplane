@@ -1,0 +1,33 @@
+.plane_menu li{
+	list-style-type: none;
+	float: left;
+	padding: 1em;
+	font-size: 14px;
+}
+
+.plane_user_info{
+	margin: 5px;
+}
+.user_info h4{
+	padding-bottom:5px;
+	border-bottom: 1px solid #D8DFEA;
+	text-align: center;
+}
+.plane_user_info table tr{
+	height: 30px;
+}
+.game_hall{
+	
+}
+.game_hall h4{
+	margin-bottom: 1px;
+}
+.plane_user_ctrl{
+	
+}
+.plane_user_ctrl td{
+	text-align: center;	
+}
+.plane_user_ctrl input{
+	width: 85%;
+}

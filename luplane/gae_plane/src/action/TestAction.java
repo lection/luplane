@@ -1,9 +1,12 @@
 package action;
 
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import model.GameHouse;
+import model.GameHouseManager;
 import model.User;
 
 import org.apache.struts2.ServletActionContext;
@@ -11,13 +14,18 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import service.UserService;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.xiaonei.api.XiaoneiRestClient;
 
 import dao.UserDao;
 
 public class TestAction {
+	public static final String USER_SESSION_KEY = "user_session_key";
+	
 	private String message;
 	private User user;
+	private List<GameHouse> houseList;
+	private GameHouseManager gameHouseManager;
 	private String xn_sig_session_key;
 	private Long xn_sig_user;
 	private int count;
@@ -45,6 +53,8 @@ public class TestAction {
 		message = sb.toString();
 		if(xn_sig_user!=null)
 			user = userService.loadUserById(xn_sig_user);
+		ActionContext.getContext().getSession().put(USER_SESSION_KEY, user);
+		houseList = gameHouseManager.listHouse(1);
 		return "success";
 	}
 
@@ -86,5 +96,21 @@ public class TestAction {
 
 	public void setXn_sig_user(Long xn_sig_user) {
 		this.xn_sig_user = xn_sig_user;
+	}
+
+	public List<GameHouse> getHouseList() {
+		return houseList;
+	}
+
+	public void setHouseList(List<GameHouse> houseList) {
+		this.houseList = houseList;
+	}
+
+	public GameHouseManager getGameHouseManager() {
+		return gameHouseManager;
+	}
+
+	public void setGameHouseManager(GameHouseManager gameHouseManager) {
+		this.gameHouseManager = gameHouseManager;
 	}
 }
