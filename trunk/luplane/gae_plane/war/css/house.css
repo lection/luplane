@@ -1,0 +1,9 @@
+#our_game table td{
+	cursor: pointer;
+}
+.game_td_head{
+	background-color: red;
+}
+.game_td_body{
+	background-color: blue;
+}

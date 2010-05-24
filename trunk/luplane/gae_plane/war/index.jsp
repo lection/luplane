@@ -7,26 +7,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Insert title here</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
-	<style>
-		.plane_menu li{
-			list-style-type: none;
-			float: left;
-			padding: 1em;
-			font-size: 14px;
-		}
-		
-		.plane_user_info{
-			margin: 5px;
-		}
-		.plane_user_info h4{
-			padding-bottom:5px;
-			border-bottom: 1px solid #D8DFEA;
-			text-align: center;
-		}
-		.plane_user_info table tr{
-			height: 30px;
-		}
-	</style>
+	<script type="text/javascript" src="js/jquery_dialog.js"></script>
+	<script type="text/javascript" src="js/houses.js"></script>
+	<script type="text/javascript" src="js/plane.js"></script>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/jquery_dialog.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/house.css" rel="stylesheet" type="text/css" media="all"/>
 	</head>
 <body>
 <div id="plane_center" style="border:1px solid black;">
