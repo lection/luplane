@@ -51,9 +51,18 @@ public class TestAction {
 		}
 		sb.append("<br/>共：" + userDao.count());
 		message = sb.toString();
-		if(xn_sig_user!=null)
-			user = userService.loadUserById(xn_sig_user);
-		ActionContext.getContext().getSession().put(USER_SESSION_KEY, user);
+		user = (User)req.getSession().getAttribute(USER_SESSION_KEY);
+		if(user==null){
+			if(xn_sig_user!=null){
+				user = userService.loadUserById(xn_sig_user);
+			}
+			if(user == null){
+				user = new User();
+				user.setId(System.currentTimeMillis());
+				user.setExperience((int)(10000*Math.random()));
+			}
+			req.getSession().setAttribute(USER_SESSION_KEY, user);
+		}
 		houseList = gameHouseManager.listHouse(1);
 		return "success";
 	}

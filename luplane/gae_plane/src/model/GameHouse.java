@@ -1,5 +1,8 @@
 package model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class GameHouse implements Comparable<GameHouse>{
 	public static final int WAIT = 0;
 	public static final int READY = 1;
@@ -21,6 +24,11 @@ public class GameHouse implements Comparable<GameHouse>{
 	private short[][] ownerPoints = new short[10][10];
 	private short[][] callerPoints = new short[10][10];
 	
+	private User player;
+	private Set<String> ownerPointSet = new HashSet<String>(8);
+	private Set<String> callerPointSet = new HashSet<String>(8);
+	private int[] last_point = new int[2];
+	
 	private PlaneModel planeModel;
 	
 	public GameHouse(){
@@ -33,6 +41,7 @@ public class GameHouse implements Comparable<GameHouse>{
 		this.password = password;
 		this.level = level;
 		this.owner = owner;
+		player = this.owner;
 	}
 	
 	public void addPlaneCount(User user){
@@ -68,6 +77,64 @@ public class GameHouse implements Comparable<GameHouse>{
 		callerPlaneCount = 0;
 		ownerPoints = new short[10][10];
 		callerPoints = new short[10][10];
+		last_point = new int[2];
+	}
+	
+	public User getInfoUser(User user){
+		if(user == owner){
+			if(caller == null){
+			}else{
+				return caller;
+			}
+		}else if(user == caller){
+			return owner;
+		}
+		return null;
+	}
+	
+	public void changePlayer(){
+		if(player == owner){
+			player = caller;
+		}else{
+			player = owner;
+		}
+	}
+	
+	public short clickPoints(User user,int point_x,int point_y){
+		short[][] points = null;		
+		Set<String> headSet = null;
+		if(user == owner){
+			points = callerPoints;
+			headSet = ownerPointSet;
+		}else{
+			points = ownerPoints;
+			headSet = callerPointSet;
+		}
+		if(point_x>points.length || point_y>points[point_x].length){
+			return -1;
+		}
+		last_point[0] = point_x;
+		last_point[1] = point_y;
+		short type = points[point_x][point_y];
+		if(type == PlaneModel.PLANE_HEAD){
+			headSet.add(point_x+","+point_y);
+			if(headSet.size()==3){
+				last_point = null;
+				type = -2;
+			}
+		}
+		return type!=0?type:-1;
+	}
+	
+	public String check(User user,int point_x,int point_y){
+		if(user != player){
+			return "没有轮到你";
+		}
+		Set<String> set = user==owner?ownerPointSet:callerPointSet;
+		if(set.contains(point_x+","+point_y)){
+			return "这个位置已经炸过了";
+		}
+		return null;
 	}
 	
 	public int compareTo(GameHouse o) {
@@ -128,5 +195,13 @@ public class GameHouse implements Comparable<GameHouse>{
 
 	public void setPlaneModel(PlaneModel planeModel) {
 		this.planeModel = planeModel;
+	}
+
+	public User getPlayer() {
+		return player;
+	}
+
+	public int[] getLast_point() {
+		return last_point;
 	}
 }

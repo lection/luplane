@@ -4,14 +4,31 @@ var dom_create_house = $("<table style='display: none;'>"+
 		"<tr><td>等级限制</td><td><input type='text' value='0'/></td></tr>"+
 		"<tr><td colspan='2'><input type='button' value='创建房间' name='create_button'/></td></tr></tbody></table>");
 function contectHouse(house_id){
-	$("#content_id").load("house_contectHouse.action","gameHouse.id="+house_id,function(){
+	$("#content_id").load("house_contectHouse.action?zxdf="+Math.random(),"gameHouse.id="+house_id,function(){
 		var info_two = $("#info_two");
 		info_two.removeClass("plane_user_ctrl").addClass("plane_user_info");
 		info_two.find("h4").html("等待用户加入");
 		info_two.find("table").html("");
 		bind_game_td();
+		fn_getHisInfo();
 	});
 };
+function fn_getHisInfo(){
+	$("#info_two").load("jsoncomet_userInfo.action?ffff="+Math.random(),function(){
+		if($("#info_two").find("h4").html()=="等待用户加入"){
+			setTimeout("fn_getHisInfo();",2000);
+		}
+	});
+}
+function fn_join_House(house_id){
+	$.getJSON("house_joinHouse.action?pppp="+Math.random(),{"gameHouse.id":house_id},function(data){
+		if(data.jsonObject.success){
+			contectHouse(house_id);
+		}else{
+			alert(data.jsonObject.error);
+		}
+	});
+}
 var my_game_td = null;
 var my_game_td_array = new Array();
 var plane_map = new Object();
@@ -80,7 +97,7 @@ function bind_game_td(){
 				}
 			});
 			if(temp_arr == null)return false;
-			$.ajax({url:"house_settingPlane.action", 
+			$.ajax({url:"house_settingPlane.action?hhhhh="+Math.random(), 
 				async:false,
 				data:{point_x:index_x,point_y:index_y,sign:plane_sign},
 				dataType:"json",
@@ -102,6 +119,7 @@ function bind_game_td(){
 				    if(data.jsonObject.success=="finish"){
 				    	alert("飞机布置完毕");
 				    	my_game_td.unbind();
+				    	fn_gaming_begin();
 				    }
 				}else{
 					alert(data.jsonObject.error);
@@ -139,7 +157,7 @@ $(function(){
 			alert("等级限制，请输入数字");
 			return;
 		}
-		$.getJSON("house_createHouse.action",{"gameHouse.name":gameHouse.name
+		$.getJSON("house_createHouse.action?qqqq="+Math.random(),{"gameHouse.name":gameHouse.name
 			,"gameHouse.password":gameHouse.password,"gameHouse.level":gameHouse.level},function(data){
 			if(data.jsonObject.success){
 				alert("房间创建成功");

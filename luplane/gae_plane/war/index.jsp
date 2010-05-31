@@ -8,6 +8,7 @@
 	<title>Insert title here</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery_dialog.js"></script>
+	<script type="text/javascript" src="js/game.js"></script>
 	<script type="text/javascript" src="js/houses.js"></script>
 	<script type="text/javascript" src="js/plane.js"></script>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
