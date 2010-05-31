@@ -1,7 +1,4 @@
 package action;
-import java.util.Map;
-
-import org.apache.struts2.ServletActionContext;
 
 import service.HouseService;
 
@@ -9,6 +6,7 @@ import com.opensymphony.xwork2.ActionContext;
 import net.sf.json.JSONObject;
 import model.GameHouse;
 import model.GameHouseManager;
+import model.PlaneModel;
 import model.User;
 
 public class HouseAction {
@@ -23,12 +21,13 @@ public class HouseAction {
 	private int point_y;
 	
 	public String createHouse(){
-		Map session = ActionContext.getContext().getSession();
+		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
 		gameHouse = gameHouseManager.createGameHouse(gameHouse.getName(), gameHouse.getPassword()
 				, gameHouse.getLevel(), 
-				(User)session.get(TestAction.USER_SESSION_KEY));
+				user);
 		if(gameHouse != null){
-			session.put(HOUSE_SESSION_KEY, gameHouse);
+//			session.put(HOUSE_SESSION_KEY, gameHouse);
+			user.setGameHouse(gameHouse);
 			jsonObject = JSONObject.fromObject("{success:"+gameHouse.getId()+"}");
 		}
 		else
@@ -39,17 +38,69 @@ public class HouseAction {
 	public String contectHouse(){
 		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
 		gameHouse = gameHouseManager.getHouseById(gameHouse.getId());
-		if(gameHouse.getCaller() == null){
-			
+		if(gameHouse.getOwner()== user || gameHouse.getCaller() == user){
+			return "gameHouse";
+		}else{
+			return "error";
 		}
-		return "gameHouse";
+	}
+	
+	public String joinHouse(){
+		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
+		gameHouse = gameHouseManager.getHouseById(gameHouse.getId());
+		synchronized (gameHouse) {
+			if(gameHouse.getCaller()==null){
+				gameHouse.setCaller(user);
+				user.setGameHouse(gameHouse);
+//				session.put(HOUSE_SESSION_KEY, gameHouse);
+				jsonObject = JSONObject.fromObject("{success:1}");
+			}else{
+				jsonObject = JSONObject.fromObject("{error:'房间已经有玩家提前加入'}");
+			}
+		}
+		return "json";
 	}
 	
 	public String settingPlane(){
-		Map session = ActionContext.getContext().getSession();
-		GameHouse gameHouse = (GameHouse)session.get(HouseAction.HOUSE_SESSION_KEY);
-		User user = (User)session.get(TestAction.USER_SESSION_KEY);
+		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
+		GameHouse gameHouse = user.getGameHouse();
 		jsonObject = houseService.settingPlane(point_x, point_y, sign,user,gameHouse);
+		return "json";
+	}
+	
+	public String gaming_click(){
+		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
+		GameHouse gameHouse = user.getGameHouse();
+		String check = gameHouse.check(user, point_x, point_y);
+		if(check == null){
+			short type = gameHouse.clickPoints(user, point_x, point_y);
+			switch(type){
+			case PlaneModel.PLANE_HEAD:
+				;break;
+			}
+			jsonObject = JSONObject.fromObject("{success:"
+					+type+"}");
+			gameHouse.changePlayer();
+		}else{
+			jsonObject = JSONObject.fromObject("{error:'"+check+"'}");
+		}
+		return "json";
+	}
+	
+	public String gaming_receive(){
+		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
+		GameHouse gameHouse = user.getGameHouse();
+		if(gameHouse.getPlayer()==user){
+			if(gameHouse.getLast_point() !=null){
+				point_x = gameHouse.getLast_point()[0];
+				point_y = gameHouse.getLast_point()[1];
+				jsonObject = JSONObject.fromObject("{success:1}");
+			}else{
+				jsonObject = JSONObject.fromObject("{success:-1}");
+			}
+		}else{
+			jsonObject = JSONObject.fromObject("{error:1}");
+		}
 		return "json";
 	}
 	

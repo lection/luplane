@@ -21,7 +21,7 @@
 			<td width=""><s:if test="state==0">等待加入</s:if><s:else>开始游戏</s:else></td>
 			<td width=""><s:if test="password!=null">加密</s:if><s:else>无密码</s:else></td>
 			<td width=""><s:if test="state==0">
-<input type="button" name="join_house" value="加入房间" onclick="contectHouse(<s:property value="id"/>)">
+<input type="button" name="join_house" value="加入房间" onclick="fn_join_House(<s:property value="id"/>)">
 			</s:if></td>
 		</tr>
 	</s:iterator>

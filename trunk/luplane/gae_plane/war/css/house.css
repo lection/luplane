@@ -7,3 +7,9 @@
 .game_td_body{
 	background-color: blue;
 }
+.game_td_another{
+	background-color: gray;
+}
+.game_td_dead{
+	background-color: black;
+}

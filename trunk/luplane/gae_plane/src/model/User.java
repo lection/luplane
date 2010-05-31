@@ -25,6 +25,8 @@ public class User {
 	@Persistent
 	private int level;
 	
+	private GameHouse gameHouse;
+	
 	public User() {
 	}
 	
@@ -93,5 +95,13 @@ public class User {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public GameHouse getGameHouse() {
+		return gameHouse;
+	}
+
+	public void setGameHouse(GameHouse gameHouse) {
+		this.gameHouse = gameHouse;
 	}
 }
