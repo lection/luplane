@@ -1,15 +1,24 @@
-#our_game table td{
+#our_game table td {
 	cursor: pointer;
 }
-.game_td_head{
+
+.game_td_head {
 	background-color: red;
 }
-.game_td_body{
+
+.game_td_body {
 	background-color: blue;
 }
-.game_td_another{
+
+.game_td_another {
 	background-color: gray;
 }
-.game_td_dead{
+
+.game_td_dead {
 	background-color: black;
+}
+
+#game_message {
+	height: 40%;
+	overflow: scroll;
 }

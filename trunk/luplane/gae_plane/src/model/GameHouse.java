@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameHouse implements Comparable<GameHouse>{
+public class GameHouse implements Comparable<GameHouse>,Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2785832344281694844L;
 	public static final int WAIT = 0;
 	public static final int READY = 1;
 	public static final int BEGIN = 0;
@@ -77,7 +82,6 @@ public class GameHouse implements Comparable<GameHouse>{
 		callerPlaneCount = 0;
 		ownerPoints = new short[10][10];
 		callerPoints = new short[10][10];
-		last_point = new int[2];
 	}
 	
 	public User getInfoUser(User user){
@@ -119,8 +123,8 @@ public class GameHouse implements Comparable<GameHouse>{
 		if(type == PlaneModel.PLANE_HEAD){
 			headSet.add(point_x+","+point_y);
 			if(headSet.size()==3){
-				last_point = null;
 				type = -2;
+				clearCount();
 			}
 		}
 		return type!=0?type:-1;
@@ -187,6 +191,11 @@ public class GameHouse implements Comparable<GameHouse>{
 
 	public void setCaller(User caller) {
 		this.caller = caller;
+		if(caller!=null){
+			this.state = BEGIN;
+		}else{
+			this.state = WAIT;
+		}
 	}
 
 	public PlaneModel getPlaneModel() {

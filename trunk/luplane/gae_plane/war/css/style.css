@@ -1,7 +1,21 @@
-.plane_menu li{
+html,body{
+	font-size: 12px;
+}
+a,a:link,a:visited{
+	text-decoration: none;
+	color: white;
+}
+a:hover{
+	text-decoration: underline;
+	color: gray;
+}
+#plane_menu{
+	background-color:#6293BB;
+}
+#plane_menu ul li{
 	list-style-type: none;
 	float: left;
-	padding: 1em;
+	padding:9px;
 	font-size: 14px;
 }
 
@@ -30,4 +44,27 @@
 }
 .plane_user_ctrl input{
 	width: 85%;
+}
+#gameHouses_head{
+	height: 10%;
+}
+#gameHouses_body{
+	text-align:center;
+	height: 75%;
+}
+#gameHouses_footer{
+	text-align:right;
+	padding-right:80px;
+	height: 15%;
+}
+#gameHouses_footer a:link,#gameHouses_footer a:visited{
+	border:1px solid #6293BB;
+	margin:2px;
+	padding:3px 7px 3px 7px;
+	color: #6293BB;
+	text-decoration: none;
+}
+#gameHouses_footer a:hover{
+	border:1px solid #006699;
+	color: black;
 }

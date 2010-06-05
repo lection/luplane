@@ -9,6 +9,7 @@
 		<default-action-ref name="welcome"></default-action-ref>
 		<global-results>
 			<result name="success">/index.jsp</result>
+			<result name="error">/error.jsp</result>
 		</global-results>
 		<action name="welcome" class="action.TestAction"></action>
 		<action name="user" class="action.UserAction"></action>
