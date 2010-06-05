@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
-<table border="1" width="100%" height="98%" class="game_hall">
+<table width="100%" height="98%" class="game_hall">
 	<tbody>
 		<tr>
-			<td width="70%" valign="top" id="content_id">
+			<td width="80%" valign="top" id="content_id">
 			<%@include file="hall/houses.jsp"%>
 			</td>
-			<td width="30%" valign="top" class="user_info">
+			<td width="20%" valign="top" class="user_info">
 				<div class="plane_user_info" id="info_one">
 					<h4>用户资料</h4>
 					<table width="100%">
@@ -38,8 +38,12 @@
 					<table width="100%">
 						<tbody>
 							<tr>
-								<td><input type="button" value="创建房间" onclick="createHouse()"/></td>
-								<td><input type="button" value="随机进入"/></td>
+								<td width="50%"><input type="button" value="创建房间" onclick="createHouse()"/></td>
+								<td width="50%"><input type="button" value="随机进入"/></td>
+							</tr>
+							<tr>
+								<td><input type="text" value=""/></td>
+								<td><input type="button" value="按编号进入"/></td>
 							</tr>
 						</tbody>
 					</table>

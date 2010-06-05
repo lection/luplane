@@ -3,13 +3,20 @@ package action;
 import service.HouseService;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
 import net.sf.json.JSONObject;
 import model.GameHouse;
 import model.GameHouseManager;
 import model.PlaneModel;
 import model.User;
 
-public class HouseAction {
+public class HouseAction extends ActionSupport{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6774684356659976532L;
+
 	public static final String HOUSE_SESSION_KEY = "house_session_key";
 	
 	private GameHouse gameHouse;
@@ -26,7 +33,6 @@ public class HouseAction {
 				, gameHouse.getLevel(), 
 				user);
 		if(gameHouse != null){
-//			session.put(HOUSE_SESSION_KEY, gameHouse);
 			user.setGameHouse(gameHouse);
 			jsonObject = JSONObject.fromObject("{success:"+gameHouse.getId()+"}");
 		}
@@ -38,9 +44,11 @@ public class HouseAction {
 	public String contectHouse(){
 		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
 		gameHouse = gameHouseManager.getHouseById(gameHouse.getId());
-		if(gameHouse.getOwner()== user || gameHouse.getCaller() == user){
+		if(gameHouse.getOwner().getId()== user.getId() || gameHouse.getCaller().getId() == user.getId()){
 			return "gameHouse";
 		}else{
+			addActionError("悲剧啊 gameHouse:"+gameHouse.getId()+"  User:"+gameHouse.getOwner() + "now:" + user
+					+"<br>User_id"+gameHouse.getOwner().getId()+"  now_id:"+user.getId());
 			return "error";
 		}
 	}
@@ -52,7 +60,6 @@ public class HouseAction {
 			if(gameHouse.getCaller()==null){
 				gameHouse.setCaller(user);
 				user.setGameHouse(gameHouse);
-//				session.put(HOUSE_SESSION_KEY, gameHouse);
 				jsonObject = JSONObject.fromObject("{success:1}");
 			}else{
 				jsonObject = JSONObject.fromObject("{error:'房间已经有玩家提前加入'}");
@@ -91,7 +98,7 @@ public class HouseAction {
 		User user = (User)ActionContext.getContext().getSession().get(TestAction.USER_SESSION_KEY);
 		GameHouse gameHouse = user.getGameHouse();
 		if(gameHouse.getPlayer()==user){
-			if(gameHouse.getLast_point() !=null){
+			if(gameHouse.getPlaneCount(user)==3){
 				point_x = gameHouse.getLast_point()[0];
 				point_y = gameHouse.getLast_point()[1];
 				jsonObject = JSONObject.fromObject("{success:1}");

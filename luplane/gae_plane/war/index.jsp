@@ -16,11 +16,13 @@
 	<link href="css/house.css" rel="stylesheet" type="text/css" media="all"/>
 	</head>
 <body>
-<div id="plane_center" style="border:1px solid black;">
-	<div style="border:1px solid red;">
-		<ul class="plane_menu" style="height:30px;">
+<div id="plane_center">
+	<div id="plane_menu">
+		<ul style="height:30px;">
 			<li><a href="#nogo">游戏大厅</a></li>
+			<li><a href="#nogo">排行榜</a></li>
 			<li><a href="#nogo">道具商城</a></li>
+			<li><a href="#nogo">游戏说明</a></li>
 		</ul>
 	</div>
 	<div style="height:320px;">

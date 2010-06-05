@@ -26,10 +26,20 @@ function fn_gaming_state(){
 	}
 	case -1:{
 		alert("您获胜了,成功炸毁对方三架飞机。卢主席口头表扬一次。");
+		if(confirm("是否继续游戏？")){
+			
+		}else{
+			
+		}
 		break;
 	}
 	case -2:{
 		alert("很遗憾，您被炸毁了三架飞机");
+		if(confirm("是否继续游戏？")){
+			
+		}else{
+			
+		}
 		break;
 	}
 	}

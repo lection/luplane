@@ -8,7 +8,7 @@
 		</tr>
 	</tbody>
 </table>
-<table width="98%" height="85%" id="our_game">
+<table width="98%" height="70%" id="our_game">
 	<tbody>
 	<tr>
 	<td width="40%">
@@ -23,8 +23,15 @@
 		</table>
 	</td>
 	<td width="20%">
+	状态:<span id="game_state">布置飞机</span><br/>
+	计时:<span id="game_state">20</span><br/>
 	<input type="button" value="旋转" onclick="plane_rotation()">
-	<span id="game_state">布置飞机</span>
+	<input type="button" value="退出" onclick="plane_rotation()"><br/>
+	<div id="game_message">
+	
+	</div>
+	<input type="text" id="game_send_message"/>
+	<input type="button" value="发送"><input type="button" value="清空">
 	</td>
 	<td width="40%">
 		<table id="his_game" border="1" width="100%" height="100%"%>

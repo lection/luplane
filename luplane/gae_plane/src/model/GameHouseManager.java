@@ -9,8 +9,8 @@ import java.util.TreeMap;
 import org.apache.commons.lang.StringUtils;
 
 public class GameHouseManager {
-	public int pageSize = 10;
-	public int maxPageSize = 50;
+	public int pageSize = 8;
+	public int maxPageSize = 20;
 	
 	private Map<Integer,GameHouse> ghMap = new TreeMap<Integer, GameHouse>();
 	private Map<String,PlaneModel> planeModelMap = new HashMap<String,PlaneModel>();
@@ -46,6 +46,12 @@ public class GameHouseManager {
 		int max = page*pageSize;
 		if(max > ghMap.size())max = ghMap.size();
 		return new ArrayList(ghMap.values()).subList((page-1)*pageSize, max);
+	}
+	
+	public void logoutHouse(User user){
+		GameHouse house = user.getGameHouse();
+		house.getCaller().setGameHouse(null);
+		house.setCaller(null);
 	}
 	
 	public int countHouse(){

@@ -2,6 +2,7 @@ package action;
 
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +22,8 @@ import dao.UserDao;
 
 public class TestAction {
 	public static final String USER_SESSION_KEY = "user_session_key";
-	
+	private static final Logger log = Logger.getLogger(TestAction.class.getName());
+
 	private String message;
 	private User user;
 	private List<GameHouse> houseList;
